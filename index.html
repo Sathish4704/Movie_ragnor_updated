@@ -1,0 +1,89 @@
+<?php session_start(); if (!isset($_SESSION['user_id'])) { header("Location: login.html"); exit(); } ?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie Ragnor</title>
+    <style>
+        .logout-btn {
+            background-color: #f39c12;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            float: right;
+            margin: 10px;
+            cursor: pointer;
+        }
+        .logo {
+            width: 80px;
+            height: auto;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #111;
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="logo.png" alt="Logo" class="logo">
+        <form method="POST" action="php/logout.php">
+            <button class="logout-btn" type="submit">Logout</button>
+        </form>
+    </header>
+
+    <!-- this is the main div of the website -->
+    <div id="main">
+        <!-- this is the header part  -->
+        <div id="header">
+            <!-- this is the website IMDb logo which is in the form of image  -->
+            <div id="logodiv">
+                <span class="movie-name">Movie</span>
+                <span class="movie-name">Box</span>
+            </div>
+
+            <!-- this is the search section  -->
+            <div id="search-bar">
+                <div class="search-content">
+                    <div id="search-area">
+                        <!-- this is the input area for searching the movie  -->
+                        <input type="text" name="searchMovie" id="searchMovie" placeholder="Search Movies">
+                    </div>
+                    <!-- here the results will be displayed  -->
+                    <!-- <div class="results">
+                        <ul>
+                            <li></li>
+                        </ul>
+                    </div> -->
+                </div>
+            </div>
+            <!-- this is the header right section were the fav movies are displayed  -->
+            <div id="right-section">
+                <button id="my-list">
+                    <!-- link to go fav section  -->
+                    <a href="./myfav.html">My Fav❤️</a>
+                </button>
+            </div>
+        </div>
+        <!-- this is the movie container here all the movies are displayed  -->
+        <div id="movie-container">
+            <div class="movie-element"></div>
+        </div>
+    </div>
+
+    <!-- this is the next and prev btn to go to next page  -->
+    <div class="page-navigation">
+        <button id="prev-page">Prev</button>
+        <button id="next-page">Next</button>
+    </div>
+    <!-- footer section end here -->
+    <!-- the javascript for the main page is linked here  -->
+    <script type="text/javascript" src="script.js"></script>
+
+</body>
+
+</html>

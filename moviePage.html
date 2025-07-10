@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Page</title>
+    <!-- link for font awesome  -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- link for css -->
+    <link rel="stylesheet" href="moviePage.css" />
+  </head>
+  <body>
+    <!-- this is the back button to go to the main index.html page -->
+    <a href="./index.html">
+        <button id="return-to-home">
+            <i class="fas fa-chevron-left"></i>Back
+        </button>
+    </a>
+
+    <!-- main div -->
+    <div id="main">
+        <!-- movie is displayed here -->
+        <div id="movie-display">
+            <div class="each-movie-page"></div>
+        </div>
+    </div>
+    
+    <!-- link for movie page javascript -->
+    <script type="text/javascript" src="moviePage.js"></script>
+  
+<div id="comment-section" style="margin-top: 40px;">
+    <h3>Comments</h3>
+    <form id="comment-form">
+        <textarea name="comment" id="comment" rows="4" style="width: 100%;" required></textarea>
+        <button type="submit" style="margin-top: 10px; padding: 10px 20px; background-color: #3498db; color: #fff; border: none; border-radius: 5px;">Post Comment</button>
+    </form>
+    <div id="comments-display" style="margin-top: 20px;"></div>
+</div>
+
+<script>
+document.getElementById('comment-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const comment = document.getElementById('comment').value;
+    const movieId = 1; // Hardcoded or dynamically set this if needed
+
+    fetch('php/comment.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: `comment=${encodeURIComponent(comment)}&movie_id=${movieId}`
+    }).then(() => {
+        document.getElementById('comment').value = '';
+        loadComments();
+    });
+});
+
+function loadComments() {
+    const movieId = 1;
+    fetch('php/fetch_comments.php?movie_id=' + movieId)
+        .then(response => response.json())
+        .then(data => {
+            const commentsDisplay = document.getElementById('comments-display');
+            commentsDisplay.innerHTML = '';
+            data.forEach(c => {
+                const div = document.createElement('div');
+                div.innerHTML = `<p><strong>${c.username}</strong> (${c.created_at})<br>${c.comment}</p><hr>`;
+                commentsDisplay.appendChild(div);
+            });
+        });
+}
+
+loadComments();
+</script>
+
+</body>
+</html>
