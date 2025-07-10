@@ -3,7 +3,7 @@ This Project is about a mini IMDB clone app in which and named MOVIE-BOX. Here w
 
 
 Toos used:
-HTML, CSS, Bootstarp, Javascript, OMDB API
+HTML, CSS, Bootstarp, Javascript, TMDB API
 
 Functionality
 
